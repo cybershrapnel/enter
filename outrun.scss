@@ -1,0 +1,330 @@
+$skyGradientBright: #440950;
+$skyGradientDark: #1b1b1b;
+$groundGradientBright: #440950;
+$groundGradientDark: #1b1b1b;
+$lineColor: #2291b3;
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background: #000;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+#sky {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  width: 100%;
+  overflow: hidden;
+  background: $skyGradientBright; /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    $skyGradientDark 0%,
+    $skyGradientBright 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    $skyGradientDark 0%,
+    $skyGradientBright 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    $skyGradientDark 0%,
+    $skyGradientBright 100%
+  );
+}
+
+#ground {
+  height: 30%;
+  width: 100%;
+  z-index: 5;
+  overflow: hidden;
+  background: $groundGradientBright; /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    $groundGradientBright 0%,
+    $groundGradientDark 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    $groundGradientBright 0%,
+    $groundGradientDark 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    $groundGradientBright 0%,
+    $groundGradientDark 100%
+  );
+}
+
+.static {
+  position: fixed;
+}
+
+.speedline-static {
+  width: 100%;
+  height: 3px;
+  background: $lineColor;
+}
+
+.speedline {
+  height: 3px;
+  animation: moveDown 3s linear infinite;
+  margin-bottom: 60px;
+}
+
+.line {
+  background: $lineColor;
+  box-shadow: 0 0 10px $lineColor;
+}
+
+.verticalLine {
+  width: 3px;
+  height: 30vh;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.verticalLines {
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+  justify-content: space-between;
+  top: calc(70vh);
+}
+
+#scanlines {
+  position: fixed;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+  background: repeating-linear-gradient(
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05) 2px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0) 7px
+  );
+}
+
+#sunContainer {
+  height: 60vh;
+  width: 60vh;
+}
+
+#sun {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 500px;
+  background: rgb(239, 147, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(239, 147, 0, 1) 0%,
+    rgba(217, 4, 195, 1) 100%
+  );
+  z-index: 3;
+}
+
+#text {
+  position: absolute;
+  z-index: 5;
+  font-family: "Permanent Marker", cursive;
+  font-size: 20vh;
+  transform: rotateZ(-15deg);
+  color: rgba(217, 4, 195, 1);
+  text-shadow: 10px 10px 0px #000;
+}
+
+.starContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#split {
+  position: relative;
+  width: 50vw;
+  height: 50px;
+  overflow: hidden;
+}
+
+#split:after {
+  content: "35";
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+  display: block;
+  border: red 50px solid;
+  margin-left: -45px;
+  margin-top: -20px;
+  color: green;
+  padding: 10px;
+}
+
+#sun:after {
+  position: absolute;
+  content: "";
+  z-index: 1;
+  border-radius: 600px;
+  height: 60vh;
+  width: 60vh;
+  filter: blur(20px);
+  transform: scale(1);
+  background: linear-gradient(
+    180deg,
+    rgba(239, 147, 0, 1) 0%,
+    rgba(217, 4, 195, 1) 100%
+  );
+  background-size: 200% 200%;
+  animation: animateGlow 10s ease infinite;
+}
+
+@keyframes animateGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes moveDown {
+  to {
+    transform: translate(0, 63px);
+  }
+}
+
+@for $i from 1 through 5 {
+  .skew#{5 - $i} {
+    transform: skewX(unquote("-" + ($i * 5) + "deg"));
+  }
+}
+
+@for $i from 1 through 5 {
+  .skew#{$i + 4} {
+    transform: skewX(unquote(($i * 5) + "deg"));
+  }
+}
+
+@function box-shadow($stars) {
+  $bxshadow: ();
+  @for $i from 1 to $stars {
+    $bxshadow: append(
+      $bxshadow,
+      (random(2000) + 0px) (random(2000) + 0px) #fff,
+      comma
+    );
+  }
+  @return $bxshadow;
+}
+
+$bxshadow-large: box-shadow(300);
+$bxshadow-medium: box-shadow(500);
+$bxshadow-small: box-shadow(800);
+
+.stars.large {
+  height: 3px;
+  width: 3px;
+  background: transparent;
+  box-shadow: $bxshadow-large;
+  animation: blink-large 7s infinite;
+  z-index: 0;
+}
+.stars.medium {
+  height: 2px;
+  width: 2px;
+  background: transparent;
+  box-shadow: $bxshadow-medium;
+  animation: blink-medium 5s infinite;
+}
+.stars.small {
+  height: 1px;
+  width: 1px;
+  background: transparent;
+  box-shadow: $bxshadow-small;
+  animation: blink-small 3s infinite;
+}
+
+@keyframes blink-large {
+  0% {
+    box-shadow: $bxshadow-large;
+  }
+  70% {
+    $colors: "#fff", "transparent";
+    $stars: $bxshadow-large;
+    @for $i from 1 to length($stars) {
+      $star: set-nth(
+        nth($stars, $i),
+        3,
+        unquote(nth($colors, random(length($colors))))
+      );
+      $stars: set-nth($stars, $i, $star);
+    }
+    box-shadow: $stars;
+  }
+  100% {
+    box-shadow: $bxshadow-large;
+  }
+}
+@keyframes blink-medium {
+  0% {
+    box-shadow: $bxshadow-medium;
+  }
+  70% {
+    $colors: "#fff", "transparent";
+    $stars: $bxshadow-medium;
+    @for $i from 1 to length($stars) {
+      $star: set-nth(
+        nth($stars, $i),
+        3,
+        unquote(nth($colors, random(length($colors))))
+      );
+      $stars: set-nth($stars, $i, $star);
+    }
+    box-shadow: $stars;
+  }
+  100% {
+    box-shadow: $bxshadow-medium;
+  }
+}
+@keyframes blink-small {
+  0% {
+    box-shadow: $bxshadow-small;
+  }
+  70% {
+    $colors: "#fff", "transparent";
+    $stars: $bxshadow-small;
+    @for $i from 1 to length($stars) {
+      $star: set-nth(
+        nth($stars, $i),
+        3,
+        unquote(nth($colors, random(length($colors))))
+      );
+      $stars: set-nth($stars, $i, $star);
+    }
+    box-shadow: $stars;
+  }
+  100% {
+    box-shadow: $bxshadow-small;
+  }
+}
