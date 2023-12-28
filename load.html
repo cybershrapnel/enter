@@ -9,6 +9,16 @@
     	<link rel='stylesheet' media='screen and (min-width: 101px) and (max-width: 1000px)' href='build/outrun2.css' />
 
 	<link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+	<style>
+		.centered-content {
+    position: absolute;    /* Use absolute positioning */
+    top: 50%;              /* Position the top edge of the element at the middle of the container */
+    left: 50%;             /* Position the left edge of the element at the middle of the container */
+    transform: translate(-50%, -50%); /* Shift the element back by half its width and height to center it */
+    text-align: center;    /* Center the text inside the div */
+    color: white;          /* Change the text color to white or as per your design */
+}
+</style>
 </head>
 
 <body>
@@ -20,7 +30,11 @@
 	document.write('<iframe width="0" height="0" src="https://www.youtube.com/embed/qk1nnAHI1mI?autoplay=1&start='+favorite+'" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>');
 </script>
 
-    <div id="scanlines"><h1>PROCESSING... PLEASE WAIT</h1>
+    <div class="centered-content">
+    <h1>PROCESSING... PLEASE WAIT</h1>
+ 
+</div>
+
 
 	<img   src="preloader.gif">
     </div>
