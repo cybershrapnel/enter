@@ -231,7 +231,7 @@ body {
   @for $i from 1 to $stars {
     $bxshadow: append(
       $bxshadow,
-      (random(2000) + 0px) (random(2000) + 0px) #fff,
+      (random(5000) + 0px) (random(5000) + 0px) #fff,
       comma
     );
   }
